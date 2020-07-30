@@ -30,13 +30,3 @@ services:
     image: accounts-db
     expose:
       - 5432
-
-### Java Agent
-  java-agent:
-    container_name: java-agent
-    hostname: java-agent
-    image: appdynamics/java-agent:latest
-    volumes:
-      - java-agent:/opt/appdynamics
-volumes:
-  java-agent:
