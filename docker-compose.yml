@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  loadgenerator:
+    container_name: load_generator
+    image: loadgenerator
+
+  frontend:
+    container_name: front_end
+    image: frontend
+    depends_on:
+      - "contacts"
+    expose:
+      - 8080
+      - 5000
+    ports:
+      - "5000:5000"
+
+  contacts:
+    container_name: contacts
+    image: contacts
+    depends_on:
+      - "accounts-db"
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+
+  accounts-db:
+    container_name: accounts-db
+    image: accounts-db
+    expose:
+      - 5432
+
+### Java Agent
+  java-agent:
+    container_name: java-agent
+    hostname: java-agent
+    image: appdynamics/java-agent:latest
+    volumes:
+      - java-agent:/opt/appdynamics
+volumes:
+  java-agent:
